@@ -1096,8 +1096,8 @@ window.Vue = __webpack_require__(36);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('app', __webpack_require__(39));
-Vue.component('navigation', __webpack_require__(41));
+Vue.component('App', __webpack_require__(39));
+Vue.component('Navigation', __webpack_require__(41));
 
 var app = new Vue({
   el: '#app'
@@ -43062,7 +43062,7 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("navigation"),
+      _c("Navigation"),
       _vm._v(" "),
       _c("div", { staticClass: "container" }, [
         _vm._v("\n        router\n    ")
@@ -43136,9 +43136,101 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [_vm._v("\n  navigation\n")])
+  return _vm._m(0)
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "nav",
+      { staticClass: "navbar navbar-default navbar-static-top" },
+      [
+        _c("div", { staticClass: "container" }, [
+          _c("div", { staticClass: "navbar-header" }, [
+            _c(
+              "button",
+              {
+                staticClass: "navbar-toggle collapsed",
+                attrs: {
+                  type: "button",
+                  "data-toggle": "collapse",
+                  "data-target": "#app-navbar-collapse",
+                  "aria-expanded": "false"
+                }
+              },
+              [
+                _c("span", { staticClass: "sr-only" }, [
+                  _vm._v("Toggle Navigation")
+                ]),
+                _vm._v(" "),
+                _c("span", { staticClass: "icon-bar" }),
+                _vm._v(" "),
+                _c("span", { staticClass: "icon-bar" }),
+                _vm._v(" "),
+                _c("span", { staticClass: "icon-bar" })
+              ]
+            ),
+            _vm._v(" "),
+            _c("a", { staticClass: "navbar-brand", attrs: { href: "#" } }, [
+              _vm._v("\n            Boilerplate\n        ")
+            ])
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "collapse navbar-collapse",
+              attrs: { id: "app-navbar-collapse" }
+            },
+            [
+              _c("ul", { staticClass: "nav navbar-nav" }, [
+                _vm._v("\n             \n        ")
+              ]),
+              _vm._v(" "),
+              _c("ul", { staticClass: "nav navbar-nav navbar-right" }, [
+                _c("li", [
+                  _c("a", { attrs: { href: "#" } }, [_vm._v("Login")])
+                ]),
+                _vm._v(" "),
+                _c("li", [
+                  _c("a", { attrs: { href: "#" } }, [_vm._v("Register")])
+                ]),
+                _vm._v(" "),
+                _c("li", { staticClass: "dropdown" }, [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "dropdown-toggle",
+                      attrs: {
+                        href: "#",
+                        "data-toggle": "dropdown",
+                        role: "button",
+                        "aria-expanded": "false",
+                        "aria-haspopup": "true"
+                      }
+                    },
+                    [
+                      _vm._v("\n                  Rudi Lee "),
+                      _c("span", { staticClass: "caret" })
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("ul", { staticClass: "dropdown-menu" }, [
+                    _c("li", [
+                      _c("a", { attrs: { href: "#" } }, [_vm._v("Logout")])
+                    ])
+                  ])
+                ])
+              ])
+            ]
+          )
+        ])
+      ]
+    )
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
