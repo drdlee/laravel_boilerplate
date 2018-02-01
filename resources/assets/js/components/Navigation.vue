@@ -27,7 +27,7 @@
           <ul class="nav navbar-nav navbar-right">
               <!-- Authentication Links -->
              
-              <li><a href="#">Login</a></li>
+              <li><router-link :to="{ name: 'login' }">Login</router-link></li>
               <li><a href="#">Register</a></li>
           
               <li class="dropdown">
