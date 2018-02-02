@@ -11907,8 +11907,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 __WEBPACK_IMPORTED_MODULE_2_localforage___default.a.config({
-  driver: __WEBPACK_IMPORTED_MODULE_2_localforage___default.a.LOCALSTORAGE,
-  storeName: 'boilerplate'
+    driver: __WEBPACK_IMPORTED_MODULE_2_localforage___default.a.LOCALSTORAGE,
+    storeName: 'boilerplate'
 });
 
 /**
@@ -11930,10 +11930,17 @@ window.Vue = __webpack_require__(1);
 Vue.component('App', __webpack_require__(59));
 Vue.component('Navigation', __webpack_require__(61));
 
+__WEBPACK_IMPORTED_MODULE_1__vuex__["a" /* default */].dispatch('auth/setToken').then(function () {
+    __WEBPACK_IMPORTED_MODULE_1__vuex__["a" /* default */].dispatch('auth/fetchUser').catch(function () {
+        __WEBPACK_IMPORTED_MODULE_1__vuex__["a" /* default */].dispatch('auth/clearAuth');
+        __WEBPACK_IMPORTED_MODULE_0__router__["a" /* default */].replace({ name: 'login' });
+    });
+});
+
 var app = new Vue({
-  el: '#app',
-  router: __WEBPACK_IMPORTED_MODULE_0__router__["a" /* default */],
-  store: __WEBPACK_IMPORTED_MODULE_1__vuex__["a" /* default */]
+    el: '#app',
+    router: __WEBPACK_IMPORTED_MODULE_0__router__["a" /* default */],
+    store: __WEBPACK_IMPORTED_MODULE_1__vuex__["a" /* default */]
 });
 
 /***/ }),
@@ -47747,7 +47754,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "login", function() { return login; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setToken", function() { return setToken; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchUser", function() { return fetchUser; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "checkTokenExists", function() { return checkTokenExists; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "clearAuth", function() { return clearAuth; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helper_index__ = __webpack_require__(83);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_lodash__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_localforage__ = __webpack_require__(82);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_localforage___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_localforage__);
+
+
 
 
 var register = function register(_ref, _ref2) {
@@ -47782,6 +47797,12 @@ var setToken = function setToken(_ref5, token) {
     var commit = _ref5.commit,
         dispatch = _ref5.dispatch;
 
+    if (Object(__WEBPACK_IMPORTED_MODULE_1_lodash__["isEmpty"])(token)) {
+        return dispatch('checkTokenExists').then(function (token) {
+            Object(__WEBPACK_IMPORTED_MODULE_0__helper_index__["a" /* setHttpToken */])(token);
+        });
+    }
+
     commit('setToken', token);
     Object(__WEBPACK_IMPORTED_MODULE_0__helper_index__["a" /* setHttpToken */])(token);
 };
@@ -47793,6 +47814,27 @@ var fetchUser = function fetchUser(_ref6) {
         commit('setAuthenticated', true);
         commit('setUserData', response.data.data);
     });
+};
+
+var checkTokenExists = function checkTokenExists(_ref7, token) {
+    var commit = _ref7.commit,
+        dispatch = _ref7.dispatch;
+
+    return __WEBPACK_IMPORTED_MODULE_2_localforage___default.a.getItem('authtoken').then(function (token) {
+        if (Object(__WEBPACK_IMPORTED_MODULE_1_lodash__["isEmpty"])(token)) {
+            return Promise.reject('NO_STORAGE_TOKEN');
+        }
+        return Promise.resolve(token);
+    });
+};
+
+var clearAuth = function clearAuth(_ref8, token) {
+    var commit = _ref8.commit;
+
+    commit('setAuthenticated', false);
+    commit('setUserData', null);
+    commit('setToken', null);
+    Object(__WEBPACK_IMPORTED_MODULE_0__helper_index__["a" /* setHttpToken */])(null);
 };
 
 /***/ }),
