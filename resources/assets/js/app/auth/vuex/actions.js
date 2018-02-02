@@ -44,7 +44,7 @@ export const fetchUser = ({ commit }) => {
     })
 }
 
-export const checkTokenExists = ({ commit, dispatch }, token) => {
+export const checkTokenExists = () => {
   return localforage.getItem('authtoken').then((token)=>{
       if(isEmpty(token)){
           return Promise.reject('NO_STORAGE_TOKEN');
