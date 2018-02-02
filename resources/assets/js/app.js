@@ -26,12 +26,16 @@ window.Vue = require('vue');
 Vue.component('App', require('./components/App.vue'));
 Vue.component('Navigation', require('./components/Navigation.vue'));
 
-store.dispatch('auth/setToken').then(()=>{
+store.dispatch('auth/setToken')
+.then(()=>{
     store.dispatch('auth/fetchUser')
     .catch(()=>{
         store.dispatch('auth/clearAuth')
         router.replace({name: 'login'})
     })
+})
+.catch(()=>{
+    store.dispatch('auth/clearAuth')
 })
 
 const app = new Vue({
