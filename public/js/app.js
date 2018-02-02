@@ -36497,6 +36497,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchUser", function() { return fetchUser; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "checkTokenExists", function() { return checkTokenExists; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "clearAuth", function() { return clearAuth; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "logout", function() { return logout; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helper_index__ = __webpack_require__(46);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_lodash__);
@@ -36573,6 +36574,14 @@ var clearAuth = function clearAuth(_ref7, token) {
     commit('setUserData', null);
     commit('setToken', null);
     Object(__WEBPACK_IMPORTED_MODULE_0__helper_index__["a" /* setHttpToken */])(null);
+};
+
+var logout = function logout(_ref8) {
+    var dispatch = _ref8.dispatch;
+
+    return axios.post('/api/logout').then(function (response) {
+        dispatch('clearAuth');
+    });
 };
 
 /***/ }),
@@ -50437,6 +50446,8 @@ module.exports = Component.exports
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(4);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 //
 //
 //
@@ -50491,9 +50502,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  computed: Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["c" /* mapGetters */])({
-    user: 'auth/user'
-  })
+    computed: Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["c" /* mapGetters */])({
+        user: 'auth/user'
+    }),
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["b" /* mapActions */])({
+        logout: 'auth/logout'
+    }), {
+        logoutYo: function logoutYo() {
+            var _this = this;
+
+            this.logout().then(function (response) {
+                _this.$router.replace({ name: 'home' });
+            });
+        }
+    })
 });
 
 /***/ }),
@@ -50591,7 +50613,23 @@ var render = function() {
                     ]
                   ),
                   _vm._v(" "),
-                  _vm._m(1)
+                  _c("ul", { staticClass: "dropdown-menu" }, [
+                    _c("li", [
+                      _c(
+                        "a",
+                        {
+                          attrs: { href: "#" },
+                          on: {
+                            click: function($event) {
+                              $event.preventDefault()
+                              _vm.logoutYo($event)
+                            }
+                          }
+                        },
+                        [_vm._v("Logout")]
+                      )
+                    ])
+                  ])
                 ])
               ])
             : _vm._e()
@@ -50626,14 +50664,6 @@ var staticRenderFns = [
         _c("span", { staticClass: "icon-bar" })
       ]
     )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("ul", { staticClass: "dropdown-menu" }, [
-      _c("li", [_c("a", { attrs: { href: "#" } }, [_vm._v("Logout")])])
-    ])
   }
 ]
 render._withStripped = true

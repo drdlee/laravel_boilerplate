@@ -59,3 +59,9 @@ export const clearAuth = ({ commit }, token) => {
     commit('setToken', null)
     setHttpToken(null)
 }
+
+export const logout = ({ dispatch }) => {
+    return axios.post('/api/logout').then((response) => {
+        dispatch('clearAuth')
+    })
+}
