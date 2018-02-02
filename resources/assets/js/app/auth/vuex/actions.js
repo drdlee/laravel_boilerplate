@@ -3,7 +3,10 @@ import { setHttpToken } from "../../../helper/index";
 export const register = ({ dispatch }, { payload, context }) => {
     return axios.post('/api/register', payload)
     .then((response)=> {
-        console.log(response)
+        dispatch('setToken', response.data.meta.token)
+            .then(() => {
+                dispatch('fetchUser')
+            })
     }).catch((error)=>{
         context.errors = error.response.data.errors
     })

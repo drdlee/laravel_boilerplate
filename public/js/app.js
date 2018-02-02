@@ -47756,7 +47756,9 @@ var register = function register(_ref, _ref2) {
         context = _ref2.context;
 
     return axios.post('/api/register', payload).then(function (response) {
-        console.log(response);
+        dispatch('setToken', response.data.meta.token).then(function () {
+            dispatch('fetchUser');
+        });
     }).catch(function (error) {
         context.errors = error.response.data.errors;
     });
